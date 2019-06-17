@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(eve-zam)
+project(bro-driver)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 add_executable(${PROJECT_NAME} "main.cpp" "eve-zam-tools.cpp" "EveWindow.cpp" "EveIngameWindow.cpp" "EveLocalChannel.cpp" "ImageLibrary.cpp" "ShipModule.cpp" "Spaceship.cpp" "EveOverview.cpp" )
 
