@@ -8,7 +8,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
-#include "eve-zam-tools.hpp"
+#include "tools.hpp"
 #include "EveWindow.hpp"
 
 using std::wcout;

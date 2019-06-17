@@ -6,10 +6,9 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
-#include "eve-zam-tools.hpp"
+#include "tools.hpp"
 #include "EveWindow.hpp"
 #include "EveLocalChannel.hpp"
-#include "ShipModule.hpp"
 #include "Spaceship.hpp"
 
 
@@ -23,9 +22,6 @@ void refreshData( EveWindow* eveWindow, EveLocalChannel* eveLocalChannel = NULL,
 {
     while( true )
     {
-        //TODO: Надо замерить время выполнения критической секции (RefreshTime) и отправлять тред
-        //TODO: в сон на (250ms - RefreshTime). Если RefreshTime > 250, выдавать предупреждение и
-        //TODO: отправлять тред в сон на 50ms
         mDataAccess.lock();
         eveWindow->refresh();
         if ( eveLocalChannel != NULL ) eveLocalChannel->refresh();

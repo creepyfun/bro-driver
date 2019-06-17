@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "eve-zam-tools.hpp"
+#include "tools.hpp"
 #include "ImageLibrary.hpp"
 
 ImageLibrary::ImageLibrary( std::string subdir, std::string filter)
