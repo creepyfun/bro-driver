@@ -18,14 +18,14 @@ bool stopAllThreads = false;
 using std::wcout;
 using std::endl;
 
-void refreshData( EveWindow* eveWindow, EveLocalChannel* eveLocalChannel = NULL, Spaceship* spaceship = NULL )
+void refreshData( EveWindow* eveWindow, EveLocalChannel* eveLocalChannel = nullptr, Spaceship* spaceship = nullptr )
 {
     while( true )
     {
         mDataAccess.lock();
         eveWindow->refresh();
-        if ( eveLocalChannel != NULL ) eveLocalChannel->refresh();
-        if ( spaceship != NULL ) spaceship->refresh();
+        if ( eveLocalChannel != nullptr ) eveLocalChannel->refresh();
+        if ( spaceship != nullptr ) spaceship->refresh();
         mDataAccess.unlock();
 
         if ( debugMode() )
@@ -38,7 +38,7 @@ void refreshData( EveWindow* eveWindow, EveLocalChannel* eveLocalChannel = NULL,
     }  
 }
 
-void soundAlarm( EveLocalChannel* elc = NULL , Spaceship* ship = NULL )
+void soundAlarm( EveLocalChannel* elc = nullptr , Spaceship* ship = nullptr )
 {
     bool warningsPresent = true;
     bool enemyInLocal = true;
@@ -49,13 +49,13 @@ void soundAlarm( EveLocalChannel* elc = NULL , Spaceship* ship = NULL )
         warningsPresent = false;
 
         mDataAccess.lock();
-        if ( elc != NULL )
+        if ( elc != nullptr )
         {
             enemyInLocal = elc->dangerDetected();
             if ( elc->recognitionProblemPresent() )
                 warningsPresent = true;
         }
-        if ( ship != NULL )
+        if ( ship != nullptr )
             if ( ship->recognitionProblemPresent() )
                 warningsPresent = true;
         mDataAccess.unlock();

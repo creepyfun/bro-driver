@@ -50,7 +50,7 @@ private:
     int percentArmor_ = -1;
     int percentStructure_ = -1;
 
-    EveWindow* eveWindow_ = NULL;
+    EveWindow* eveWindow_ = nullptr;
     int const digitX_[9] = { 19, 13,  7,   // координаты верхних левых углов цифр
                              19, 13,  7,   // процента остатка щитов, брони и структуры
                              19, 13,  7 }; // в HUD
@@ -60,8 +60,8 @@ private:
     int const digitWidth_ = 9;   //7
     int const digitHeight_ = 12; //10
 
-    ImageLibrary* digitsImageLibrary_ = NULL;
-    ImageLibrary* modulesImageLibrary_ = NULL;
+    ImageLibrary* digitsImageLibrary_ = nullptr;
+    ImageLibrary* modulesImageLibrary_ = nullptr;
     ShipModule* module_[8];
 
     void findHud_();

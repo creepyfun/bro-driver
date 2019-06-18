@@ -11,13 +11,13 @@
 using std::wcout;
 using std::endl;
 
-std::string getResourcePath( char* argv0 = NULL )
+std::string getResourcePath( char* argv0 = nullptr )
 {
     char path[4096] = { 0 };
     char const* subdir = "res";
     static std::string resourceLibPath = "";
 
-    if ( argv0 != NULL )
+    if ( argv0 != nullptr )
     {
     strcpy( path, argv0 );
 
@@ -37,7 +37,7 @@ std::string getResourcePath( char* argv0 = NULL )
 
 cv::Point getFragmentLocation( cv::Mat* image, cv::Mat* fragment,
                                double requiredCorrelationLevel = 0.8,
-                               double* obtainedCorrelationLevel = NULL )
+                               double* obtainedCorrelationLevel = nullptr )
 {
 
     double minVal = 0, maxVal = 0;
@@ -49,7 +49,7 @@ cv::Point getFragmentLocation( cv::Mat* image, cv::Mat* fragment,
     cv::minMaxLoc( matchResult, &minVal, &maxVal, &minLoc, &maxLoc );
 //    wcout << maxVal << std::endl;
 
-    if ( obtainedCorrelationLevel != NULL ) *obtainedCorrelationLevel = maxVal;
+    if ( obtainedCorrelationLevel != nullptr ) *obtainedCorrelationLevel = maxVal;
     if ( maxVal < requiredCorrelationLevel ) return failMatch;
     return maxLoc;
 }
@@ -71,21 +71,21 @@ void epicFail()
     abort();
 }
 
-void fillFileList( std::vector <std::string>* fileList, std::string* path, std::string* filter = NULL )
+void fillFileList( std::vector <std::string>* fileList, std::string* path, std::string* filter = nullptr )
 {
     std::regex *reFilter;
-    if ( filter == NULL) reFilter = new std::regex(".*");
+    if ( filter == nullptr ) reFilter = new std::regex(".*");
     else reFilter = new std::regex( filter->c_str() );
 
     DIR *dir = opendir( path->c_str() );
-    if ( dir == NULL)
+    if ( dir == nullptr )
     {
         wcout << " FATAL: Can't open '" << path << "' !" << endl;
         epicFail();
     }
 
-    dirent64 *currentDirEntry = NULL;
-    while ( (currentDirEntry = readdir64( dir )) != NULL )
+    dirent64 *currentDirEntry = nullptr;
+    while ( (currentDirEntry = readdir64( dir )) != nullptr )
     {
         std::string currentFileName(currentDirEntry->d_name);
         if ( std::regex_search( currentFileName.begin(), currentFileName.end(), *reFilter ) )

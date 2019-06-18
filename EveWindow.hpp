@@ -17,14 +17,14 @@ public:
     void setSubpixB( int x, int y, unsigned char val ) { ewImage_->at<cv::Vec3b>( cv::Point( x, y ) )[0] = val; }
 
 private:
-    Display* display_ = NULL;
+    Display* display_ = nullptr;
     Window windowId_ = 0;
     XWindowAttributes xWindowAttributes_;
-    XImage* xWindowImage_ = NULL;
+    XImage* xWindowImage_ = nullptr;
 
     int width_ = -1;
     int height_ = -1;
-    cv::Mat* ewImage_ = NULL;
+    cv::Mat* ewImage_ = nullptr;
 
     Window findEveWindow_( char* windowName );
     char* getWindowName_( Window win );

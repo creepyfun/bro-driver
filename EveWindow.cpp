@@ -16,21 +16,21 @@ using std::endl;
 
 void EveWindow::refresh()
 {
-    if ( ewImage_ != NULL )
+    if ( ewImage_ != nullptr )
     {
         delete ewImage_;
-        ewImage_ = NULL;
+        ewImage_ = nullptr;
     }
 
-    if ( xWindowImage_ != NULL )
+    if ( xWindowImage_ != nullptr )
     {
         XFree( xWindowImage_->data );
         XFree( xWindowImage_ );
-        xWindowImage_ = NULL;
+        xWindowImage_ = nullptr;
     }
 
     xWindowImage_ = XGetImage( display_, windowId_, 0, 0, width_, height_, AllPlanes, ZPixmap );
-    if ( xWindowImage_ == NULL )
+    if ( xWindowImage_ == nullptr )
     {
         wcout << " FATAL: XGetImage failed! Aborting execution..." << endl;;
         epicFail();
@@ -56,8 +56,8 @@ EveWindow::~EveWindow()
 
 EveWindow::EveWindow( char* windowName )
 {
-    display_ = XOpenDisplay( NULL );
-    if ( display_ == NULL )
+    display_ = XOpenDisplay( nullptr );
+    if ( display_ == nullptr )
     {
         wcout << " FATAL: Can't open display!" << endl;
         epicFail();
@@ -92,17 +92,17 @@ char* EveWindow::getWindowName_( Window win ) {
     Atom actualType;
     int format;
     unsigned long count, bytesAfter;
-    unsigned char* name = NULL;
+    unsigned char* name = nullptr;
 
     Status status = XGetWindowProperty( display_, win, XInternAtom( display_, "_NET_WM_NAME", False ),
                                         0L, ~0L, False, XInternAtom( display_, "UTF8_STRING", False ),
                                         &actualType, &format, &count, &bytesAfter, &name );
     if( status != Success ) {
 
-        return NULL;
+        return nullptr;
     }
 
-    if( name == NULL ) {
+    if( name == nullptr ) {
 
         Status status = XGetWindowProperty( display_, win, XInternAtom( display_, "WM_NAME", False ),
                                             0L, ~0L, False, AnyPropertyType,
@@ -110,7 +110,7 @@ char* EveWindow::getWindowName_( Window win ) {
 
         if( status != Success ) {
 
-            return NULL;
+            return nullptr;
         }
     }
 
@@ -125,7 +125,7 @@ Window EveWindow::findEveWindow_( char* windowName )
     Atom actualType;
     int format;
     unsigned long bytesAfter;
-    unsigned char* list = NULL;
+    unsigned char* list = nullptr;
 
 
     Status status = XGetWindowProperty( display_, DefaultRootWindow( display_ ),

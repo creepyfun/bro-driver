@@ -22,8 +22,8 @@ protected:
     int width_ = -1;
     int height_ = -1;
 
-    EveWindow* eveWindow_ =  NULL;
-    cv::Mat* ingameWindowImage_ = NULL;
+    EveWindow* eveWindow_ =  nullptr;
+    cv::Mat* ingameWindowImage_ = nullptr;
 
     cv::Mat fragmentTopLeft_;
     cv::Mat fragmentBottomRight_;

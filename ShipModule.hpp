@@ -27,9 +27,9 @@ private:
     unsigned int refreshCount_ = 1;
     unsigned int refreshDevider_ = 10;
 
-    EveWindow* eveWindow_ =  NULL;
-    Spaceship* spaceship_ = NULL;
-    cv::Mat* moduleImage_ = NULL;
+    EveWindow* eveWindow_ =  nullptr;
+    Spaceship* spaceship_ = nullptr;
+    cv::Mat* moduleImage_ = nullptr;
     std::string moduleName_ = "";
 
     int hudX = -1;
