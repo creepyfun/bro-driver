@@ -128,7 +128,7 @@ void Spaceship::refresh() {
         module_[i]->refresh();
 }
 
-Spaceship::Spaceship(EveWindow* eveWindow)
+Spaceship::Spaceship(EveWindow *eveWindow)
 {
     eveWindow_ = eveWindow;
 

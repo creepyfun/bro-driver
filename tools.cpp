@@ -11,7 +11,7 @@
 using std::cout;
 using std::endl;
 
-std::string getResourcePath( char* argv0 = nullptr )
+std::string getResourcePath(const char *argv0 = nullptr )
 {
     char path[4096] = { 0 };
     char const* subdir = "res";
@@ -35,9 +35,9 @@ std::string getResourcePath( char* argv0 = nullptr )
     return resourceLibPath;
 }
 
-cv::Point getFragmentLocation( cv::Mat* image, cv::Mat* fragment,
-                               double requiredCorrelationLevel = 0.8,
-                               double* obtainedCorrelationLevel = nullptr )
+cv::Point getFragmentLocation(const cv::Mat *image, const cv::Mat *fragment,
+                               const double requiredCorrelationLevel = 0.8,
+                               double *obtainedCorrelationLevel = nullptr )
 {
 
     double minVal = 0, maxVal = 0;
@@ -59,7 +59,7 @@ cv::Scalar randomColorSet()
     return cv::Scalar( rand()%256, rand()%256, rand()%256 );
 }
 
-void playSoundFile ( std::string soundFileName )
+void playSoundFile (const std::string soundFileName )
 {
     std::string syscmd = "aplay -q ";
     std::system( syscmd.append( getResourcePath() ).append( soundFileName ).c_str() );
@@ -71,7 +71,7 @@ void epicFail()
     abort();
 }
 
-void fillFileList( std::vector <std::string>* fileList, std::string* path, std::string* filter = nullptr )
+void fillFileList(std::vector <std::string>* fileList, const std::string *path, const std::string *filter = nullptr )
 {
     std::regex *reFilter;
     if ( filter == nullptr ) reFilter = new std::regex(".*");
@@ -85,7 +85,7 @@ void fillFileList( std::vector <std::string>* fileList, std::string* path, std::
     }
 
     dirent64 *currentDirEntry = nullptr;
-    while ( (currentDirEntry = readdir64( dir )) != nullptr )
+    while ( (currentDirEntry = readdir64( dir ) ) != nullptr )
     {
         std::string currentFileName(currentDirEntry->d_name);
         if ( std::regex_search( currentFileName.begin(), currentFileName.end(), *reFilter ) )
@@ -94,7 +94,7 @@ void fillFileList( std::vector <std::string>* fileList, std::string* path, std::
  delete reFilter;
 }
 
-bool debugMode( bool revertFlag = false )
+bool debugMode(const bool revertFlag = false )
 {
     static bool mode = false;
     if ( revertFlag ) mode = !mode;

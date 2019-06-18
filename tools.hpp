@@ -6,16 +6,16 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 
-std::string getResourcePath( char* argv0 = nullptr );
-cv::Point getFragmentLocation( cv::Mat* image, cv::Mat* fragment,
-                               double  requiredCorrelationLevel = 0.8,
+std::string getResourcePath( const char* argv0 = nullptr );
+cv::Point getFragmentLocation( const cv::Mat* image, const cv::Mat* fragment,
+                               const double  requiredCorrelationLevel = 0.8,
                                double* obtainedCorrelationLevel = nullptr );
 cv::Scalar randomColorSet();
-void playSoundFile( std::string soundFileName ); // Linux only
+void playSoundFile( const std::string soundFileName ); // Linux only
 void epicFail();
 void fillFileList( std::vector <std::string>* fileList, // Linux only
-                   std::string* path,
-                   std::string* filter = nullptr );
+                   const std::string* path,
+                   const std::string* filter = nullptr );
 void epicFail();
-bool debugMode( bool revertFlag = false );
+bool debugMode( const bool revertFlag = false );
 
