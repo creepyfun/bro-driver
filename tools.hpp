@@ -8,7 +8,7 @@
 
 std::string getResourcePath( char* argv0 = nullptr );
 cv::Point getFragmentLocation( cv::Mat* image, cv::Mat* fragment,
-                               double requiredCorrelationLevel = 0.8,
+                               double  requiredCorrelationLevel = 0.8,
                                double* obtainedCorrelationLevel = nullptr );
 cv::Scalar randomColorSet();
 void playSoundFile( std::string soundFileName ); // Linux only

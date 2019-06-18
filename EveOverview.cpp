@@ -8,7 +8,7 @@
 #include "EveWindow.hpp"
 #include "EveOverview.hpp"
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 void EveOverview::refresh()

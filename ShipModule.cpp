@@ -11,7 +11,7 @@
 #include "Spaceship.hpp"
 #include "ShipModule.hpp"
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 void ShipModule::moduleDetection_()
@@ -110,29 +110,29 @@ void ShipModule::refresh()
         for ( int i = 1; i < 4; i++)
             statusVote_[i] = 0;
 
-        wcout << "Module in position " << modulePosition_ << " now ";
+        cout << "Module in position " << modulePosition_ << " now ";
         switch (maxpos) {
         case 1:
             moduleStatus_ = inactive;
-            wcout << "inactive";
+            cout << "inactive";
             break;
 
         case 2:
             moduleStatus_ = activeGreen;
-            wcout << "active and green";
+            cout << "active and green";
             break;
 
         case 3:
             moduleStatus_ = activeRed;
-            wcout << "active and RED";
+            cout << "active and RED";
             break;
 
         default:
-            wcout << "OMG! Fuckup in switch O_o";
+            cout << "OMG! Fuckup in switch O_o";
             epicFail();
             break;
         }
-        wcout << endl;
+        cout << endl;
     }
     
 }
@@ -147,7 +147,7 @@ ShipModule::ShipModule(EveWindow *eveWindow, Spaceship* spaceship, int modulePos
     refreshCount_ = modulePosition_ + 1;
 
     moduleDetection_();
-    if ( moduleStatus_ != absent) wcout << " INFO: " << moduleName_.c_str()
+    if ( moduleStatus_ != absent) cout << " INFO: " << moduleName_.c_str()
                                         << " found at position " << modulePosition_
                                         << endl;
     refresh();

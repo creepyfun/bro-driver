@@ -21,7 +21,7 @@ ImageLibrary::ImageLibrary( std::string subdir, std::string filter)
         loadableImages_.push_back( cv::imread( libPath_ + imageFileNames_[i] ) );
         if ( loadableImages_[i].empty() )
         {
-            std::wcout << " FATAL: Can't load image " << imageFileNames_[i].c_str() << std::endl;
+            std::cout << " FATAL: Can't load image " << imageFileNames_[i].c_str() << std::endl;
             epicFail();
         }
     }

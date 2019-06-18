@@ -8,7 +8,7 @@
 #include "EveWindow.hpp"
 #include "EveLocalChannel.hpp"
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 
@@ -62,12 +62,12 @@ EveLocalChannel::EveLocalChannel( EveWindow* eveWindow,
         enemySign_[i] = cv::imread( getResourcePath() + imageFileNames_[i] );
         if( enemySign_[i].empty() )
         {
-            wcout << " FATAL: Can't load image " << imageFileNames_[i].c_str() << endl;
+            cout << " FATAL: Can't load image " << imageFileNames_[i].c_str() << endl;
             epicFail();
         }
     }
     findWindowLocation_();
-    wcout << " INFO: Local channel area size " << width_ << "x"<< height_ << "." << endl;
+    cout << " INFO: Local channel area size " << width_ << "x"<< height_ << "." << endl;
     refresh();
 }
 

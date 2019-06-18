@@ -8,7 +8,7 @@
 #include "EveWindow.hpp"
 #include "EveIngameWindow.hpp"
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 bool EveIngameWindow::needReFindWindow_()
@@ -75,14 +75,14 @@ EveIngameWindow::EveIngameWindow( EveWindow* eveWindow,
     fragmentTopLeft_ = cv::imread( getResourcePath() + fileNameFragmentTopLeft );
     if( fragmentTopLeft_.empty() )
     {
-        wcout << " FATAL: Can't load image " << fileNameFragmentTopLeft.c_str() << endl;
+        cout << " FATAL: Can't load image " << fileNameFragmentTopLeft.c_str() << endl;
         epicFail();
     }
 
     fragmentBottomRight_ = cv::imread( getResourcePath() + fileNameFragmentBottomRight );
     if( fragmentBottomRight_.empty() )
     {
-        wcout << " FATAL: Can't load image " << fileNameFragmentBottomRight.c_str() << endl;
+        cout << " FATAL: Can't load image " << fileNameFragmentBottomRight.c_str() << endl;
         epicFail();
     }
 

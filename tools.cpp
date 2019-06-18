@@ -8,7 +8,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 std::string getResourcePath( char* argv0 = nullptr )
@@ -29,7 +29,7 @@ std::string getResourcePath( char* argv0 = nullptr )
         }
 
         resourceLibPath.append( path ).append( subdir ).append( &path[pathLen] );
-        wcout << " INFO: Resource library path: " << resourceLibPath.c_str() << endl;
+        cout << " INFO: Resource library path: " << resourceLibPath.c_str() << endl;
     }
 
     return resourceLibPath;
@@ -47,7 +47,7 @@ cv::Point getFragmentLocation( cv::Mat* image, cv::Mat* fragment,
 
     cv::matchTemplate( *image, *fragment, matchResult, cv::TM_CCOEFF_NORMED );
     cv::minMaxLoc( matchResult, &minVal, &maxVal, &minLoc, &maxLoc );
-//    wcout << maxVal << std::endl;
+//    cout << maxVal << std::endl;
 
     if ( obtainedCorrelationLevel != nullptr ) *obtainedCorrelationLevel = maxVal;
     if ( maxVal < requiredCorrelationLevel ) return failMatch;
@@ -80,7 +80,7 @@ void fillFileList( std::vector <std::string>* fileList, std::string* path, std::
     DIR *dir = opendir( path->c_str() );
     if ( dir == nullptr )
     {
-        wcout << " FATAL: Can't open '" << path << "' !" << endl;
+        cout << " FATAL: Can't open '" << path << "' !" << endl;
         epicFail();
     }
 

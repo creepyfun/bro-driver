@@ -15,7 +15,7 @@
 std::mutex mDataAccess;
 bool stopAllThreads = false;
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 void refreshData( EveWindow* eveWindow, EveLocalChannel* eveLocalChannel = nullptr, Spaceship* spaceship = nullptr )
@@ -72,13 +72,13 @@ int main( int argc, char** argv )
 {
 
     setlocale( LC_ALL, "" );
-    wcout << std::fixed << endl;
+    cout << std::fixed << endl;
 
     // debugMode( true );
 
     if ( argc != 2 )
     {
-        wcout << "Usage: " << argv[0] << " 'EVE window title' " << endl;
+        cout << "Usage: " << argv[0] << " 'EVE window title' " << endl;
         return -1;
     }
 
@@ -92,7 +92,7 @@ int main( int argc, char** argv )
 
     cv::namedWindow("Debug", cv::WINDOW_AUTOSIZE );
 
-    wcout << "Press Enter to exit..." << endl;
+    cout << "Press Enter to exit..." << endl;
     std::cin.get();
 
     cv::destroyWindow("Debug");
@@ -104,7 +104,7 @@ int main( int argc, char** argv )
     delete elc;
     delete ew;
 
-    wcout << " INFO: Finished!" << endl << endl;
+    cout << " INFO: Finished!" << endl << endl;
 
     return 0;
 }

@@ -11,7 +11,7 @@
 #include "ShipModule.hpp"
 #include "Spaceship.hpp"
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 void Spaceship::findHud_()
@@ -25,7 +25,7 @@ void Spaceship::findHud_()
     undockButtonLocation = getFragmentLocation( eveWindow_->get_ewImagePtr(), &undockButtonImage_, 0.6, &resUndockButtonCorrelationLevel );
     if ( ( hudDetectorLocation.x == -1 || hudDetectorLocation.y == -1 ) && ( undockButtonLocation.x == -1 || undockButtonLocation.y == -1 ) )
     {
-        wcout << " WARN: Can't find HUD and Undock button simultaneously. Strange situation..." << endl
+        cout << " WARN: Can't find HUD and Undock button simultaneously. Strange situation..." << endl
               << " DEBUG: Correlation level for HUD:" << resHudCorrelationLevel << endl
               << " DEBUG: Correlation level for Undock Button:" << resUndockButtonCorrelationLevel << endl;
         recognitionProblem_ = true;
@@ -116,12 +116,12 @@ void Spaceship::refresh() {
                        cv::Point( hudX_+hudWidth_ , hudY_+hudHeight_ ),
                        cv::Scalar( 0, 255, 255 ) );
 
-        wcout << " DEBUG: Shield/Armor/Structure = "
+        cout << " DEBUG: Shield/Armor/Structure = "
               << percentShield_  << "/"
               << percentArmor_ << "/"
               << percentStructure_ << endl;
         if ( docked() )
-            wcout << " DEBUG: ship docked!" << endl;
+            cout << " DEBUG: ship docked!" << endl;
     }
 
     for( int i = 0; i < 8; i++)
@@ -135,14 +135,14 @@ Spaceship::Spaceship(EveWindow* eveWindow)
     hudDetectorImage_ = cv::imread( getResourcePath() + hudDetectorFileName_ );
     if ( hudDetectorImage_.empty() )
     {
-        wcout << " FATAL: Can't load image " << hudDetectorFileName_.c_str() << endl;
+        cout << " FATAL: Can't load image " << hudDetectorFileName_.c_str() << endl;
         epicFail();
     }
 
     undockButtonImage_ = cv::imread( getResourcePath() + undockButtonFileName_ );
     if ( undockButtonImage_.empty() )
     {
-        wcout << " FATAL: Can't load image " << undockButtonFileName_.c_str() << endl;
+        cout << " FATAL: Can't load image " << undockButtonFileName_.c_str() << endl;
         epicFail();
     }
     undockButtonWidth_ = undockButtonImage_.cols;
@@ -150,10 +150,10 @@ Spaceship::Spaceship(EveWindow* eveWindow)
 
     findHud_();
 
-    wcout << " INFO: HUD coordinates (" << hudX_ << ", " << hudY_ << "),"
+    cout << " INFO: HUD coordinates (" << hudX_ << ", " << hudY_ << "),"
           << " size " << hudWidth_ << "x" << hudHeight_ << "." << endl ;
     if ( docked() )
-        wcout << " INFO: Spaceship in dock." << endl ;
+        cout << " INFO: Spaceship in dock." << endl ;
 
     digitsImageLibrary_ = new ImageLibrary( "huddigits" );
 

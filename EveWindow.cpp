@@ -1,4 +1,3 @@
-#include <QString> //TODO: надо избавиться от него, переписав EveWindow::findEveWindow и EveWindow::getWindowName
 #include <iostream>
 
 #include <opencv2/opencv.hpp>
@@ -11,7 +10,7 @@
 #include "tools.hpp"
 #include "EveWindow.hpp"
 
-using std::wcout;
+using std::cout;
 using std::endl;
 
 void EveWindow::refresh()
@@ -32,7 +31,7 @@ void EveWindow::refresh()
     xWindowImage_ = XGetImage( display_, windowId_, 0, 0, width_, height_, AllPlanes, ZPixmap );
     if ( xWindowImage_ == nullptr )
     {
-        wcout << " FATAL: XGetImage failed! Aborting execution..." << endl;;
+        cout << " FATAL: XGetImage failed! Aborting execution..." << endl;;
         epicFail();
     }
 
@@ -59,31 +58,31 @@ EveWindow::EveWindow( char* windowName )
     display_ = XOpenDisplay( nullptr );
     if ( display_ == nullptr )
     {
-        wcout << " FATAL: Can't open display!" << endl;
+        cout << " FATAL: Can't open display!" << endl;
         epicFail();
     }
 
     windowId_ = findEveWindow_ ( windowName );
     if ( windowId_ == 0)
     {
-        wcout << " FATAL: Can't find window '" << windowName << "'!" << endl;
+        cout << " FATAL: Can't find window '" << windowName << "'!" << endl;
         epicFail();
     }
 
     if( !XGetWindowAttributes( display_, windowId_, &xWindowAttributes_ ) )
     {
-        wcout << " FATAL: Can't get attributes for window '" << windowName << "'!" << endl;
+        cout << " FATAL: Can't get attributes for window '" << windowName << "'!" << endl;
         epicFail();
     }
 
     width_ = xWindowAttributes_.width;
     height_ = xWindowAttributes_.height;
 
-    wcout << " INFO: Use window " << std::hex << windowId_ << std::dec << " with geometry "
+    cout << " INFO: Use window " << std::hex << windowId_ << std::dec << " with geometry "
           << width_ << "x" << height_ << " for further work" << endl;
 
     refresh();
-    wcout << " INFO: Color depth - " << xWindowAttributes_.depth << ", "
+    cout << " INFO: Color depth - " << xWindowAttributes_.depth << ", "
           << xWindowImage_->bits_per_pixel << " bits per pixel" << endl;
 }
 
@@ -93,33 +92,18 @@ char* EveWindow::getWindowName_( Window win ) {
     int format;
     unsigned long count, bytesAfter;
     unsigned char* name = nullptr;
-
-    Status status = XGetWindowProperty( display_, win, XInternAtom( display_, "_NET_WM_NAME", False ),
-                                        0L, ~0L, False, XInternAtom( display_, "UTF8_STRING", False ),
-                                        &actualType, &format, &count, &bytesAfter, &name );
-    if( status != Success ) {
-
-        return nullptr;
-    }
-
-    if( name == nullptr ) {
-
-        Status status = XGetWindowProperty( display_, win, XInternAtom( display_, "WM_NAME", False ),
+    Status status = XGetWindowProperty( display_, win, XInternAtom( display_, "WM_NAME", False ),
                                             0L, ~0L, False, AnyPropertyType,
                                             &actualType, &format, &count, &bytesAfter, &name );
 
-        if( status != Success ) {
-
-            return nullptr;
-        }
-    }
+    if( status != Success ) return nullptr;
 
     return (char*) name;
 }
 
 Window EveWindow::findEveWindow_( char* windowName )
 {
-    QString eveWindowName( windowName );
+    std::string eveWindowName = windowName;
     Window eveWindow = 0;
     unsigned long  winCounter = 0;
     Atom actualType;
@@ -135,33 +119,35 @@ Window EveWindow::findEveWindow_( char* windowName )
 
     if( status != Success )
     {
-        wcout << " ERROR: Can't get root window property!" << endl;
+        cout << " ERROR: Can't get root window property!" << endl;
         return 0;
     }
 
-    wcout << " INFO: Searching window with title '" << windowName << "'..."<< endl;
+    cout << " INFO: Searching window with title '" << windowName << "'..."<< endl;
 
     Window* windowsList = (Window*) list;
+    Window  currWindow = 0;
+    char*  currWinName = nullptr;
 
-        for ( ulong i = 0; i < winCounter; i++ )
+        for ( unsigned long i = 0; i < winCounter; i++ )
         {
-            Window currWindow = windowsList[i];
-            wcout << " INFO: Window "<< std::hex << currWindow << std::dec;
+            currWindow = windowsList[i];
+            cout << " INFO: Window "<< std::hex << currWindow << std::dec;
 
-            if( char* name = getWindowName_( currWindow ) )
+            currWinName = getWindowName_( currWindow );
+            if( currWinName != nullptr )
             {
-                wcout << " -> '" << QString::fromUtf8( name ).toStdWString() << "'";
+                cout << " -> '" << currWinName  << "'";
 
-                if( eveWindowName == QString::fromUtf8( name ) )
+                if( eveWindowName == std::string( currWinName ) )
                 {
-                        wcout << " <- MATCH FOUND!";
+                        cout << " <- MATCH FOUND!";
                         eveWindow = currWindow;
                 }
 
-                XFree( name );
+                XFree( currWinName );
             }
-
-        wcout << endl;
+        cout << endl;
         }
   return eveWindow;
 }
