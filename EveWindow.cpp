@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
@@ -103,7 +104,6 @@ char* EveWindow::getWindowName_( Window win ) {
 
 Window EveWindow::findEveWindow_( char* windowName )
 {
-    std::string eveWindowName = windowName;
     Window eveWindow = 0;
     unsigned long  winCounter = 0;
     Atom actualType;
@@ -139,7 +139,7 @@ Window EveWindow::findEveWindow_( char* windowName )
             {
                 cout << " -> '" << currWinName  << "'";
 
-                if( eveWindowName == std::string( currWinName ) )
+                if( strcmp( windowName, currWinName ) == 0  )
                 {
                         cout << " <- MATCH FOUND!";
                         eveWindow = currWindow;
