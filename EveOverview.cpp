@@ -27,7 +27,7 @@ void EveOverview::refresh()
 
     ingameWindowImage_ = new cv::Mat( *eveWindow_->get_ewImagePtr(), cv::Rect( x_, y_, width_, height_ ) );
 
-    // тут быстренько детектим и мастерим список объектов в овервью
+    // TODO: тут быстренько детектим и мастерим список объектов в овервью
 
     delete ingameWindowImage_;
 }

@@ -14,7 +14,7 @@ public:
 protected:
     bool recognitionProblem_ = false;
 
-    unsigned int refreshCount_ = 1;
+    unsigned int refreshCounter_ = 1;
     unsigned int refreshDevider_ = 3;
 
     int x_ = -1;

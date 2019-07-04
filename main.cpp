@@ -52,12 +52,12 @@ void soundAlarm( EveLocalChannel* elc = nullptr , Spaceship* ship = nullptr )
         if ( elc != nullptr )
         {
             enemyInLocal = elc->dangerDetected();
-            if ( elc->recognitionProblemPresent() )
-                warningsPresent = true;
+            if ( elc->recognitionProblemPresent() ) warningsPresent = true;
         }
         if ( ship != nullptr )
-            if ( ship->recognitionProblemPresent() )
-                warningsPresent = true;
+        {
+            if ( ship->recognitionProblemPresent() ) warningsPresent = true;
+        }
         mDataAccess.unlock();
 
         if ( warningsPresent ) playSoundFile( "warning.wav" );

@@ -48,14 +48,17 @@ int Spaceship::detectDigit_( int pos )
 {
 
     cv::Mat sector( *eveWindow_->get_ewImagePtr(),
-                    cv::Rect( hudX_+digitX_[pos], hudY_+digitY_[pos],
-                              digitWidth_, digitHeight_) );
+                    cv::Rect( hudX_+digitX_[pos],
+                              hudY_+digitY_[pos],
+                              digitWidth_,
+                              digitHeight_)
+                    );
 
     double resCorrelationLevel = -1,
            maxCorrelationLevel = -1;
     unsigned int imageNum;
 
-    for( unsigned int i = 0; i < digitsImageLibrary_->getQuanty(); i++ )
+    for( unsigned int i = 0; i < digitsImageLibrary_->getQuanty(); ++i )
     {
         getFragmentLocation( &sector, digitsImageLibrary_->getImagePtr(i), 0.6 , &resCorrelationLevel);
         if ( resCorrelationLevel > maxCorrelationLevel)
@@ -76,9 +79,8 @@ int Spaceship::detectDigit_( int pos )
 
 void Spaceship::refresh() {
 
-    if ( refreshCount_ % refreshDevider_ == 0 )
-        findHud_();
-    refreshCount_++;
+    if ( refreshCounter_ % refreshDevider_ == 0 ) findHud_();
+    ++refreshCounter_;
 
     if ( !docked() )
     {
@@ -107,14 +109,15 @@ void Spaceship::refresh() {
         }
     }
 
-    // дело за малым - придумать как добыть данные капаситора :)
+    // TODP: дело за малым - придумать как добыть данные капаситора :)
 
     if ( debugMode() )
     {
         cv::rectangle( *eveWindow_->get_ewImagePtr(),
                        cv::Point( hudX_ , hudY_ ),
                        cv::Point( hudX_+hudWidth_ , hudY_+hudHeight_ ),
-                       cv::Scalar( 0, 255, 255 ) );
+                       cv::Scalar( 0, 255, 255 )
+                       );
 
         cout << " DEBUG: Shield/Armor/Structure = "
               << percentShield_  << "/"
@@ -124,7 +127,7 @@ void Spaceship::refresh() {
             cout << " DEBUG: ship docked!" << endl;
     }
 
-    for( int i = 0; i < 8; i++)
+    for( int i = 0; i < 8; ++i )
         module_[i]->refresh();
 }
 
@@ -152,14 +155,15 @@ Spaceship::Spaceship(EveWindow *eveWindow)
 
     cout << " INFO: HUD coordinates (" << hudX_ << ", " << hudY_ << "),"
           << " size " << hudWidth_ << "x" << hudHeight_ << "." << endl ;
-    if ( docked() )
-        cout << " INFO: Spaceship in dock." << endl ;
+    if ( docked() ) cout << " INFO: Spaceship in dock." << endl ;
 
     digitsImageLibrary_ = new ImageLibrary( "huddigits" );
 
     modulesImageLibrary_ = new ImageLibrary( "modules" );
-    for( int i = 0; i < 8; i++)
+    for( int i = 0; i < 8; ++i )
+    {
         module_[i] = new ShipModule( eveWindow_, this, i, modulesImageLibrary_ );
+    }
     refresh();
 }
 
@@ -168,8 +172,10 @@ Spaceship::~Spaceship()
 
     delete digitsImageLibrary_;
 
-    for( int i = 0; i < 8; i++ )
+    for( int i = 0; i < 8; ++i )
+    {
         delete module_[i];
+    }
 
     delete modulesImageLibrary_;
 }

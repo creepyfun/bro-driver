@@ -24,7 +24,7 @@ private:
     ImageLibrary* modulesImageLibrary_;
     int imageNum_ = -1;
 
-    unsigned int refreshCount_ = 1;
+    unsigned int refreshCounter_ = 1;
     unsigned int refreshDevider_ = 10;
 
     EveWindow* eveWindow_ =  nullptr;

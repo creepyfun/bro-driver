@@ -27,7 +27,7 @@ public:
 private:
     bool recognitionProblem_ = false;
 
-    unsigned int refreshCount_ = 2;
+    unsigned int refreshCounter_ = 2;
     unsigned int refreshDevider_ = 3;
 
     int hudX_ = -1;

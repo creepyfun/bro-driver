@@ -8,15 +8,12 @@ ImageLibrary::ImageLibrary( std::string subdir, std::string filter)
 {
 
     libPath_ = getResourcePath();
-    if ( subdir != "")
-        libPath_ = libPath_ + subdir + libPath_[libPath_.length()-1];
-
-    if (filter != "")
-        fileNameFilter_ = filter;
+    if ( subdir != "") libPath_ = libPath_ + subdir + libPath_[libPath_.length()-1];
+    if (filter != "") fileNameFilter_ = filter;
 
     fillFileList( &imageFileNames_, &libPath_, &fileNameFilter_);
 
-    for( int i = 0; i < imageFileNames_.size(); i++)
+    for( int i = 0; i < imageFileNames_.size(); ++i)
     {
         loadableImages_.push_back( cv::imread( libPath_ + imageFileNames_[i] ) );
         if ( loadableImages_[i].empty() )

@@ -32,7 +32,7 @@ void EveLocalChannel::refresh()
     cv::Point enemySignLoc(0,0);
 
     int i = 0;
-    for (; i < 4; i++ )
+    for (; i < 4; ++i )
     {
         enemySignLoc = getFragmentLocation ( ingameWindowImage_, &enemySign_[i], 0.97 );
             if ( enemySignLoc.x != -1 || enemySignLoc.y != -1 )
@@ -49,15 +49,15 @@ void EveLocalChannel::refresh()
 EveLocalChannel::EveLocalChannel( EveWindow* eveWindow,
                                   std::string fileNameFragmentTopLeft,
                                   std::string fileNameFragmentBottomRight,
-                                  int refreshCount, int refreshDevider )
+                                  int refreshCounter, int refreshDevider )
                                 :
                                   EveIngameWindow (eveWindow, fileNameFragmentTopLeft, fileNameFragmentBottomRight )
 {
 
-    refreshCount_ = refreshCount;
+    refreshCounter_ = refreshCounter;
     refreshDevider_ = refreshDevider;
 
-    for ( int i = 0; i<numImg_; i++)
+    for ( int i = 0; i < numImg_; ++i )
     {
         enemySign_[i] = cv::imread( getResourcePath() + imageFileNames_[i] );
         if( enemySign_[i].empty() )

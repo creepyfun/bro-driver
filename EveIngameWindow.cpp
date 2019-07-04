@@ -15,9 +15,8 @@ bool EveIngameWindow::needReFindWindow_()
 {
     bool needFind = false;
 
-    if ( refreshCount_ % refreshDevider_ == 0 )
-        needFind = true;
-    refreshCount_++;
+    if ( refreshCounter_ % refreshDevider_ == 0 ) needFind = true;
+    ++refreshCounter_;
 
     return needFind;
 }
@@ -45,7 +44,9 @@ void EveIngameWindow::findWindowLocation_()
         clippingZoneHeight = eveWindow_->get_ewImagePtr()->rows - y_;
 
     if ( (x_ + clippingZoneWigth) > eveWindow_->get_ewImagePtr()->cols )
+    {
         clippingZoneWigth = eveWindow_->get_ewImagePtr()->cols - x_;
+    }
 
     cv::Mat clippingZone( *eveWindow_->get_ewImagePtr(), cv::Rect( x_, y_, clippingZoneWigth, clippingZoneHeight ) );
     cv::Point fragmentBottomRightLocation;

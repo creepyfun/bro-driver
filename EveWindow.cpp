@@ -37,7 +37,7 @@ void EveWindow::refresh()
     }
 
     // Каждый 4-й байт в windowImage->data - канал прозрачности, его необходимо убрать
-    for( unsigned long i = 3, j = 1; i< width_*height_*3 ; i++ )
+    for( unsigned long i = 3, j = 1; i< width_*height_*3 ; ++i )
     {
         j =  i/3;
         xWindowImage_->data[i] = xWindowImage_->data[i+j];
@@ -129,7 +129,7 @@ Window EveWindow::findEveWindow_( char* windowName )
     Window  currWindow = 0;
     char*  currWinName = nullptr;
 
-        for ( unsigned long i = 0; i < winCounter; i++ )
+        for ( unsigned long i = 0; i < winCounter; ++i )
         {
             currWindow = windowsList[i];
             cout << " INFO: Window "<< std::hex << currWindow << std::dec;

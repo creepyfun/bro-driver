@@ -20,13 +20,16 @@ void ShipModule::moduleDetection_()
     hudY = spaceship_->getHudY();
 
     moduleImage_ = new cv::Mat( *eveWindow_->get_ewImagePtr(),
-                               cv::Rect( hudX+offsetX_+stepX_*modulePosition_, hudY+offsetY_,
-                                         moduleAreaSize_, moduleAreaSize_ ) );
+                               cv::Rect( hudX+offsetX_+stepX_*modulePosition_,
+                                         hudY+offsetY_,
+                                         moduleAreaSize_,
+                                         moduleAreaSize_ )
+                                );
 
     double resCorrelationLevel = -1,
            maxCorrelationLevel = -1;
 
-    for( int i = 0; i < modulesImageLibrary_->getQuanty(); i++ )
+    for( int i = 0; i < modulesImageLibrary_->getQuanty(); ++i )
     {
         getFragmentLocation( moduleImage_, modulesImageLibrary_->getImagePtr(i), 0.7 , &resCorrelationLevel);
         if ( resCorrelationLevel > maxCorrelationLevel)
@@ -55,13 +58,10 @@ void ShipModule::moduleDetection_()
 void ShipModule::refresh()
 {
 
-    if ( refreshCount_ % refreshDevider_ == 0 )
-        moduleDetection_();
+    if ( refreshCounter_ % refreshDevider_ == 0 ) moduleDetection_();
+    ++refreshCounter_;
 
-    refreshCount_++;
-
-    if ( moduleStatus_ == absent )
-        return;
+    if ( moduleStatus_ == absent ) return;
 
     int moduleX = hudX+offsetX_+stepX_*modulePosition_,
         moduleY = hudY+offsetY_;
@@ -86,18 +86,15 @@ void ShipModule::refresh()
    int statusSensorRed   = eveWindow_->getSubpixR ( statusSensorX, statusSensorY ),
        statusSensorGreen = eveWindow_->getSubpixG ( statusSensorX, statusSensorY );
 
-    if ( activitySensorGlow < 280 )
-        statusVote_[inactive]++;
-
+    if ( activitySensorGlow < 280 ) ++statusVote_[inactive];
     else
-        if ( statusSensorGreen > statusSensorRed )
-            statusVote_[activeGreen]++;
-
-        else
-            statusVote_[activeRed]++;
+    {
+        if ( statusSensorGreen > statusSensorRed ) ++statusVote_[activeGreen];
+        else ++statusVote_[activeRed];
+    }
 
     int max = 0, maxpos = 0;
-    for ( int i = 1; i < 4; i++)
+    for ( int i = 1; i < 4; ++i )
     {
         if ( statusVote_[i] > max )
         {
@@ -107,7 +104,7 @@ void ShipModule::refresh()
     }
     if ( max > maxVotes_ )
     {
-        for ( int i = 1; i < 4; i++)
+        for ( int i = 1; i < 4; ++i)
             statusVote_[i] = 0;
 
         cout << "Module in position " << modulePosition_ << " now ";
@@ -144,11 +141,11 @@ ShipModule::ShipModule(EveWindow *eveWindow, Spaceship* spaceship, int modulePos
     modulePosition_ = modulePosition;
     modulesImageLibrary_ = imageLibrary;
 
-    refreshCount_ = modulePosition_ + 1;
+    refreshCounter_ = modulePosition_ + 1;
 
     moduleDetection_();
     if ( moduleStatus_ != absent) cout << " INFO: " << moduleName_.c_str()
-                                        << " found at position " << modulePosition_
-                                        << endl;
+                                       << " found at position " << modulePosition_
+                                       << endl;
     refresh();
 }
